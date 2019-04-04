@@ -26,12 +26,14 @@ public class Player {
         return null;
     }
 
-    public void destroyItem(String name) {
+    public boolean destroyItem(String name) {
         for (int i = 0; i < inventory.size(); i++) {
             if (inventory.get(i).getName().equals(name)) {
                 inventory.remove(i);
+                return true;
             }
         }
+        return false;
     }
 
     public ArrayList<Item> getInventory() {

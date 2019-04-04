@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Level {
     ArrayList<Room> rooms;
+
     public Level() {
     }
 
@@ -24,8 +25,8 @@ public class Level {
     }
 
     public Room getRoom(String name) {
-        for (Room temp: rooms) {
-            if(temp.getName().equals(name)){
+        for (Room temp : rooms) {
+            if (temp.getName().equals(name)) {
                 return temp;
             }
         }
@@ -37,6 +38,7 @@ public class Level {
     public static class Room {
         String name;
         ArrayList<Room> neighbors;
+        ArrayList<Item> items;
 
         private Room(String name) {
             this.name = name;
@@ -72,7 +74,6 @@ public class Level {
             return null;
         }
 
-        //Beware if you have multiple bedrooms, use unique naming
         public void removeNeighbor(String name) {
             for (Room temp : neighbors) {
                 if (temp.getName().equals(name)) {
@@ -80,5 +81,54 @@ public class Level {
                 }
             }
         }
+
+        public ArrayList<Item> getItems() {
+            return items;
+        }
+
+        public void displayItems() {
+            System.out.println("Items in " + name + ": ");
+            for (Item temp : items) {
+                System.out.println(temp.getName() + "\n" + temp.getDescription());
+            }
+        }
+
+        public String getItemNames(){
+            String output = "";
+            for (Item temp : items) {
+                output += temp.getName() + ", ";
+            }
+            return output;
+        }
+
+
+        public void addItem(Item newItem){
+            items.add(newItem);
+        }
+
+        public void  addItem(String name, String description ){
+            items.add(new Item(name, description));
+        }
+
+        public Item removeItem(String name){
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).getName().equals(name)) {
+                    return items.remove(i);
+                }
+            }
+            System.out.println("There is no " + name + " in " + this.name);
+            return null;
+        }
+
+        public boolean destroyItem(){
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).getName().equals(name)) {
+                    items.remove(i);
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }
