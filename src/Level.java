@@ -58,7 +58,7 @@ public class Level {
         public String getNeighborNames() {
             String output = "";
             for (Room temp : neighbors) {
-                output += temp.getName();
+                output += temp.getName() + ", ";
             }
             return output;
         }
