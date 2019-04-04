@@ -4,10 +4,15 @@ public class Level {
     ArrayList<Room> rooms;
 
     public Level() {
+        rooms = new ArrayList<>();
     }
 
     public void addRoom(String name) {
         rooms.add(new Room(name));
+    }
+
+    public void addRoom(Room newRoom) {
+        rooms.add(newRoom);
     }
 
     public void addDirectedEdge(String name1, String name2) {
@@ -40,7 +45,7 @@ public class Level {
         ArrayList<Room> neighbors;
         ArrayList<Item> items;
 
-        private Room(String name) {
+        public Room(String name) {
             this.name = name;
             this.neighbors = new ArrayList<>();
         }
@@ -93,7 +98,7 @@ public class Level {
             }
         }
 
-        public String getItemNames(){
+        public String getItemNames() {
             String output = "";
             for (Item temp : items) {
                 output += temp.getName() + ", ";
@@ -102,15 +107,15 @@ public class Level {
         }
 
 
-        public void addItem(Item newItem){
+        public void addItem(Item newItem) {
             items.add(newItem);
         }
 
-        public void  addItem(String name, String description ){
+        public void addItem(String name, String description) {
             items.add(new Item(name, description));
         }
 
-        public Item removeItem(String name){
+        public Item removeItem(String name) {
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i).getName().equals(name)) {
                     return items.remove(i);
@@ -120,7 +125,7 @@ public class Level {
             return null;
         }
 
-        public boolean destroyItem(){
+        public boolean destroyItem() {
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i).getName().equals(name)) {
                     items.remove(i);
