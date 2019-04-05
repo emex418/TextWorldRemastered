@@ -17,11 +17,11 @@ public class Main {
         Player humanPlayer = new Player(response, "");
         humanPlayer.setCurrentRoom(level.getRoom("root"));
 
-        System.out.println("Welcome to Level 1! " + humanPlayer.name);
+        System.out.println("\nWelcome to Level 1! " + humanPlayer.name);
 
         do {
 
-            System.out.println("You are in the " + humanPlayer.currentRoom);
+            System.out.println("\nYou are in the " + humanPlayer.currentRoom.getName());
             System.out.println("what do you want to do?");
             System.out.println("go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory");
             response = s.nextLine();
@@ -51,8 +51,8 @@ public class Main {
         Level.Room root = new Level.Room("root");
         Level.Room garden = new Level.Room("garden");
         Level.Room hall = new Level.Room("hall");
-        Level.Room diningRoom = new Level.Room("dining room");
-        Level.Room sittingRoom = new Level.Room("sitting room");
+        Level.Room diningRoom = new Level.Room("diningRoom");
+        Level.Room sittingRoom = new Level.Room("sittingRoom");
         Level.Room kitchen = new Level.Room("kitchen");
         Level.Room bedroom = new Level.Room("bedroom");
         Level.Room bathroom = new Level.Room("bathroom");
@@ -75,7 +75,9 @@ public class Main {
         level1.addUndirectedEdge("bedroom", "bathroom");
         level1.addUndirectedEdge("bathroom", "garden");
 
-        level1.getRoom("atrium").addItem("lamp", "provides light");
+        level1.getRoom("root").addItem("lamp", "provides light");
+        System.out.println(level1.getRoom("root").getItemNames());
+        //error in displaying
 
         return level1;
     }

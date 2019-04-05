@@ -41,21 +41,23 @@ public class Level {
 
 
     public static class Room {
-        String name;
-        ArrayList<Room> neighbors;
-        ArrayList<Item> items;
+        private String name;
+        private ArrayList<Room> neighbors = new ArrayList<>();
+        private ArrayList<Item> items = new ArrayList<>();
+        private ArrayList<Creature> creatures = new ArrayList<>();
 
         public Room(String name) {
             this.name = name;
-            this.neighbors = new ArrayList<>();
-        }
-
-        public void addNeighbor(Room n) {
-            neighbors.add(n);
         }
 
         public String getName() {
             return name;
+        }
+
+        //NEIGHBORS//
+
+        public void addNeighbor(Room n) {
+            neighbors.add(n);
         }
 
         public void setName(String name) {
@@ -87,14 +89,21 @@ public class Level {
             }
         }
 
+        public Room getRandomNeighbor() {
+            int rand = (int) Math.random() * neighbors.size();
+            return neighbors.get(rand);
+        }
+
+        //ITEMS//
+
         public ArrayList<Item> getItems() {
             return items;
         }
 
         public void displayItems() {
-            System.out.println("Items in " + name + ": ");
+            System.out.println("\n Items in " + name + ": ");
             for (Item temp : items) {
-                System.out.println(temp.getName() + "\n" + temp.getDescription());
+                System.out.println(temp.getName() + "\t" + temp.getDescription());
             }
         }
 
@@ -106,13 +115,14 @@ public class Level {
             return output;
         }
 
-
         public void addItem(Item newItem) {
             items.add(newItem);
         }
 
         public void addItem(String name, String description) {
-            items.add(new Item(name, description));
+            Item newItem = new Item(name, description);
+            System.out.println(newItem);
+            items.add(newItem);
         }
 
         public Item removeItem(String name) {
@@ -135,5 +145,18 @@ public class Level {
             return false;
         }
 
+        //Creatures//
+
+        public Creature removeCreature(String name) {
+            for (Creature c :
+                    creatures) {
+                if(c.getName().equals(name)){
+                    creatures.remove(c);
+                    return c;
+                }
+            }
+            System.out.println("There is no " + name + "creature in " + this.name);
+            return null;
+        }
     }
 }
