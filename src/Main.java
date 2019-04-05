@@ -23,7 +23,7 @@ public class Main {
 
             System.out.println("\nYou are in the " + humanPlayer.currentRoom.getName());
             System.out.println("what do you want to do?");
-            System.out.println("go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory");
+            System.out.println("go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory, interact with creatures");
             response = s.nextLine();
 
             String[] words = response.split(" ");
@@ -36,11 +36,16 @@ public class Main {
             } else if (firstWord.equals("view")) {
                 humanPlayer.currentRoom.displayItems();
             } else if (firstWord.equals("pick")) {
-                humanPlayer.addItem(humanPlayer.currentRoom.removeItem(words[3]));
+                humanPlayer.addItem(humanPlayer.currentRoom.removeItem(words[2]));
+                humanPlayer.displayInventory();
             } else if (firstWord.equals("see")) {
                 humanPlayer.displayInventory();
+            } else if (firstWord.equals("interact")){
+                System.out.println("Which creature?");
+                humanPlayer.getCurrentRoom().displayCreatures();
+                //TODO: interact with chickens
             } else {
-                System.out.println("You can; go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory");
+                System.out.println("You can; go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory, and interact with creatures");
             }
 
         } while (!response.equals("quit"));
@@ -75,9 +80,9 @@ public class Main {
         level1.addUndirectedEdge("bedroom", "bathroom");
         level1.addUndirectedEdge("bathroom", "garden");
 
-        level1.getRoom("root").addItem("lamp", "provides light");
-        System.out.println(level1.getRoom("root").getItemNames());
-        //error in displaying
+        root.addItem("lamp", "provides light");
+
+        root.addCreature(new Chicken(root));
 
         return level1;
     }

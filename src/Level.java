@@ -147,16 +147,35 @@ public class Level {
 
         //Creatures//
 
+        public void addCreature(Creature c) {
+            creatures.add(c);
+        }
+
         public Creature removeCreature(String name) {
             for (Creature c :
                     creatures) {
-                if(c.getName().equals(name)){
+                if (c.getName().equals(name)) {
                     creatures.remove(c);
                     return c;
                 }
             }
             System.out.println("There is no " + name + "creature in " + this.name);
             return null;
+        }
+
+        public ArrayList<Creature> getCreatures() {
+            return creatures;
+        }
+
+        public void displayCreatures() {
+            if(creatures.size() == 0){
+                System.out.println("There are no creatures in this room");
+                return;
+            }
+            for (Creature c :
+                    creatures) {
+                System.out.print(c.getName() + ", ");
+            }
         }
     }
 }

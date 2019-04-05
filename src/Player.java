@@ -44,7 +44,7 @@ public class Player {
         System.out.println("Inventory: ");
         for (int i = 0; i < inventory.size(); i++) {
             Item temp = inventory.get(i);
-            System.out.println(temp.getName() + "\n" + temp.getDescription());
+            System.out.println(temp.getName() + "\t" + temp.getDescription());
         }
     }
 

@@ -15,6 +15,7 @@ public class Chicken extends Creature {
 
     @Override
     public void interact() {
+        System.out.println("BOCK!! BOCKBOCK!!");
     }
 
 }
