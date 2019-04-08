@@ -6,8 +6,15 @@ public class Main {
     }
 
     private static void play(Level level) {
-        //TODO: possibly change it to an array or arrayList of command objects
-        //TODO: make all humanPlayer variables getters and setters not public variables
+        //TODO: command HashMap
+        //check to see that all HashMap things function correctly
+        //Chickens move randomly
+        //Popstars move towards the player if they're within two steps of player
+        //Wumpus runs away from player if its within 2 steps of p
+        //player class
+        //item class
+        //User can pick up and drop items
+        //Game has a way to display what items and creatures are in a room
 
         String response = ";";
         Scanner s = new Scanner(System.in);
@@ -17,11 +24,11 @@ public class Main {
         Player humanPlayer = new Player(response, "");
         humanPlayer.setCurrentRoom(level.getRoom("root"));
 
-        System.out.println("\nWelcome to Level 1! " + humanPlayer.name);
+        System.out.println("\nWelcome to Level 1! " + humanPlayer.getName());
 
         do {
 
-            System.out.println("\nYou are in the " + humanPlayer.currentRoom.getName());
+            System.out.println("\nYou are in the " + humanPlayer.getCurrentRoom().getName());
             System.out.println("what do you want to do?");
             System.out.println("go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory, interact with creatures");
             response = s.nextLine();
@@ -32,11 +39,11 @@ public class Main {
             if (firstWord.equals("go")) {
                 humanPlayer.moveToRoom(words[2]);
             } else if (firstWord.equals("look")) {
-                System.out.println(humanPlayer.currentRoom.getNeighborNames());
+                System.out.println(humanPlayer.getCurrentRoom().getNeighborNames());
             } else if (firstWord.equals("view")) {
-                humanPlayer.currentRoom.displayItems();
+                humanPlayer.getCurrentRoom().displayItems();
             } else if (firstWord.equals("pick")) {
-                humanPlayer.addItem(humanPlayer.currentRoom.removeItem(words[2]));
+                humanPlayer.addItem(humanPlayer.getCurrentRoom().removeItem(words[2]));
                 humanPlayer.displayInventory();
             } else if (firstWord.equals("see")) {
                 humanPlayer.displayInventory();

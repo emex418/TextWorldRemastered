@@ -2,9 +2,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Player {
-    String name, description;
-    Level.Room currentRoom;
-    ArrayList<Item> inventory;
+    private String name, description;
+    private Level.Room currentRoom;
+    private ArrayList<Item> inventory;
 
     public Player(String name, String description) {
         this.name = name;
@@ -68,4 +68,7 @@ public class Player {
         return false;
     }
 
+    public String getName() {
+        return name;
+    }
 }

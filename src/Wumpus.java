@@ -9,11 +9,11 @@ public class Wumpus extends Creature {
 
     @Override
     public void move(Level.Room playerRoom) {
-        Level.Room randomNeighbor = playerRoom.getRandomNeighbor();
-        if (!randomNeighbor.equals(playerRoom)) {
-            currentRoom.removeCreature(name);
-            currentRoom = randomNeighbor;
-        }
+        String[] playerNeighbors = playerRoom.getNeighborNames().split(",");
+        String wumpusNeighbors = player
+        //if(a player neighbor is tha same as your naighbor or player room is the same as Wumpus neighbor) move to that room
+
+
     }
 
     public void hunt() {

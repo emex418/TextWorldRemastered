@@ -1,48 +1,43 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Level {
-    ArrayList<Room> rooms;
+    private HashMap<String, Room> rooms;
 
     public Level() {
-        rooms = new ArrayList<>();
+        rooms = new HashMap<>();
     }
 
     public void addRoom(String name) {
-        rooms.add(new Room(name));
+        rooms.put(name, new Room(name));
     }
 
     public void addRoom(Room newRoom) {
-        rooms.add(newRoom);
+        rooms.put(newRoom.getName(), newRoom);
     }
 
     public void addDirectedEdge(String name1, String name2) {
-        Room room1 = getRoom(name1);
-        Room room2 = getRoom(name2);
+        Room room1 = rooms.get(name1);
+        Room room2 = rooms.get(name2);
         room1.addNeighbor(room2);
         room2.addNeighbor(room1);
-
     }
+
+    public Room getRoom(String name){
+        return rooms.get(name);
+    }
+
 
     public void addUndirectedEdge(String name1, String name2) {
-        Room room1 = getRoom(name1);
-        Room room2 = getRoom(name2);
+        Room room1 = rooms.get(name1);
+        Room room2 = rooms.get(name2);
         room1.addNeighbor(room2);
-    }
-
-    public Room getRoom(String name) {
-        for (Room temp : rooms) {
-            if (temp.getName().equals(name)) {
-                return temp;
-            }
-        }
-        System.out.println("Created new node " + name);
-        return new Room(name);
     }
 
 
     public static class Room {
         private String name;
-        private ArrayList<Room> neighbors = new ArrayList<>();
+        private HashMap<String, Room> neighbors = new HashMap<>();
         private ArrayList<Item> items = new ArrayList<>();
         private ArrayList<Creature> creatures = new ArrayList<>();
 
@@ -57,7 +52,7 @@ public class Level {
         //NEIGHBORS//
 
         public void addNeighbor(Room n) {
-            neighbors.add(n);
+            neighbors.put(n.getName(), n);
         }
 
         public void setName(String name) {
@@ -65,6 +60,7 @@ public class Level {
         }
 
         public String getNeighborNames() {
+            //TODO: fix me!
             String output = "";
             for (Room temp : neighbors) {
                 output += temp.getName() + ", ";
@@ -73,23 +69,16 @@ public class Level {
         }
 
         public Room getNeighbor(String name) {
-            for (Room temp : neighbors) {
-                if (temp.getName().equals(name)) {
-                    return temp;
-                }
-            }
+            neighbors.get(name);
             return null;
         }
 
         public void removeNeighbor(String name) {
-            for (Room temp : neighbors) {
-                if (temp.getName().equals(name)) {
-                    neighbors.remove(temp);
-                }
-            }
+            neighbors.remove(name);
         }
 
         public Room getRandomNeighbor() {
+            //TODO: not correct, get method in HashMap does not react the same way
             int rand = (int) Math.random() * neighbors.size();
             return neighbors.get(rand);
         }
