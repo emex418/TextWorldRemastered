@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Player {
     private String name, description;
@@ -57,13 +58,9 @@ public class Player {
     }
 
     public boolean moveToRoom(String name) {
-        String[] neighborNames = currentRoom.getNeighborNames().split(",");
-        for (String temp :
-                neighborNames) {
-            if (temp.equals(name)) {
-                currentRoom = currentRoom.getNeighbor(temp);
-                return true;
-            }
+        if (currentRoom.getNeighbors().containsKey(name)) {
+            currentRoom = currentRoom.getNeighbor(name);
+            return true;
         }
         return false;
     }

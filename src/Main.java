@@ -11,8 +11,6 @@ public class Main {
         //Chickens move randomly
         //Popstars move towards the player if they're within two steps of player
         //Wumpus runs away from player if its within 2 steps of p
-        //player class
-        //item class
         //User can pick up and drop items
         //Game has a way to display what items and creatures are in a room
 
@@ -39,7 +37,7 @@ public class Main {
             if (firstWord.equals("go")) {
                 humanPlayer.moveToRoom(words[2]);
             } else if (firstWord.equals("look")) {
-                System.out.println(humanPlayer.getCurrentRoom().getNeighborNames());
+                humanPlayer.getCurrentRoom().displayNeighbors();
             } else if (firstWord.equals("view")) {
                 humanPlayer.getCurrentRoom().displayItems();
             } else if (firstWord.equals("pick")) {

@@ -23,7 +23,7 @@ public class Level {
         room2.addNeighbor(room1);
     }
 
-    public Room getRoom(String name){
+    public Room getRoom(String name) {
         return rooms.get(name);
     }
 
@@ -59,15 +59,6 @@ public class Level {
             this.name = name;
         }
 
-        public String getNeighborNames() {
-            //TODO: fix me!
-            String output = "";
-            for (Room temp : neighbors) {
-                output += temp.getName() + ", ";
-            }
-            return output;
-        }
-
         public Room getNeighbor(String name) {
             neighbors.get(name);
             return null;
@@ -78,9 +69,20 @@ public class Level {
         }
 
         public Room getRandomNeighbor() {
-            //TODO: not correct, get method in HashMap does not react the same way
-            int rand = (int) Math.random() * neighbors.size();
-            return neighbors.get(rand);
+            ArrayList<Room> list = (ArrayList<Room>) neighbors.values();
+            int rand = (int) Math.random() * list.size();
+            return list.get(rand);
+        }
+
+        public HashMap<String, Level.Room> getNeighbors() {
+            return neighbors;
+        }
+
+        public void displayNeighbors() {
+            System.out.println("Neighbors: ");
+            for(Room temp : neighbors.values()){
+                System.out.println(temp.getName());
+            }
         }
 
         //ITEMS//
@@ -141,8 +143,7 @@ public class Level {
         }
 
         public Creature removeCreature(String name) {
-            for (Creature c :
-                    creatures) {
+            for (Creature c : creatures) {
                 if (c.getName().equals(name)) {
                     creatures.remove(c);
                     return c;
@@ -157,7 +158,7 @@ public class Level {
         }
 
         public void displayCreatures() {
-            if(creatures.size() == 0){
+            if (creatures.size() == 0) {
                 System.out.println("There are no creatures in this room");
                 return;
             }
