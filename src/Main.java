@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -21,33 +22,33 @@ public class Main {
         do {
             System.out.println("\nYou are in the " + humanPlayer.getCurrentRoom().getName());
             System.out.println("what do you want to do?");
-            System.out.println("go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory, interact with creatures");
+
             response = s.nextLine();
 
+            HashMap<String, Command> commands = makeCommands();
             String[] words = response.split(" ");
             String firstWord = words[0];
-
-            if (firstWord.equals("go")) {
-                if (humanPlayer.moveToRoom(words[2])) System.out.println("To the " + humanPlayer.getCurrentRoom().getName() + "...");
-            } else if (firstWord.equals("look")) {
-                humanPlayer.getCurrentRoom().displayNeighbors();
-            } else if (firstWord.equals("view")) {
-                humanPlayer.getCurrentRoom().displayItems();
-            } else if (firstWord.equals("pick")) {
-                humanPlayer.addItem(humanPlayer.getCurrentRoom().removeItem(words[2]));
-                humanPlayer.displayInventory();
-            } else if (firstWord.equals("see")) {
-                humanPlayer.displayInventory();
-            } else if (firstWord.equals("interact")) {
-                System.out.println("Which creature?");
-                humanPlayer.getCurrentRoom().displayCreatures();
-                response = s.nextLine();
-                //TODO: get response and run the interact method of the creature named that in current room
-            } else {
-                System.out.println("You can; go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory, and interact with creatures");
+            if(commands.containsKey(firstWord)){
+                commands.get(firstWord).excecute(level, humanPlayer, response);
+            }else {
+                displayOptions();
             }
-
         } while (!response.equals("quit"));
+    }
+
+    private static void displayOptions() {
+        System.out.println("You can; go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory, interact with creatures");
+    }
+
+    private static HashMap<String, Command> makeCommands() {
+        HashMap<String, Command> c = new HashMap<>();
+        c.put("go", new Go());
+        c.put("look", new Look());
+        c.put("view", new View());
+        c.put("pick", new PickUp());
+        c.put("see", new See());
+        c.put("interact", new Interact());
+        return c;
     }
 
     private static Level createLevel1() {
