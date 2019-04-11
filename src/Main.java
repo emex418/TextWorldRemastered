@@ -6,11 +6,9 @@ public class Main {
     }
 
     private static void play(Level level) {
-        //TODO: command HashMap
-        //check to see that all HashMap things function correctly
-        //Chickens move randomly
+        //TODO: command HashMap and finish Main
+        //TODO: check to see that all HashMap things function correctly
         //Popstars move towards the player if they're within two steps of player
-        //Wumpus runs away from player if its within 2 steps of p
         //User can pick up and drop items
         //Game has a way to display what items and creatures are in a room
 
@@ -86,8 +84,6 @@ public class Main {
         level1.addUndirectedEdge("bathroom", "garden");
 
         root.addItem("lamp", "provides light");
-
-        root.addCreature(new Chicken(root));
 
         return level1;
     }

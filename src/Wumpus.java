@@ -9,9 +9,11 @@ public class Wumpus extends Creature {
 
     @Override
     public void move(Level.Room playerRoom) {
-        if(getSharedNeighbor(playerRoom) == null){
+        Level.Room sharedNeighbor = getSharedNeighbor(playerRoom);
+        while(sharedNeighbor != null || currentRoom.equals(currentRoom)){
             moveToRandomRoom();
         }
+
     }
 
     public void hunt() {
@@ -33,9 +35,9 @@ public class Wumpus extends Creature {
         String response = scanner.nextLine();
         if (response.equals("hunt")) {
             hunt();
-        } else if(response.substring(0, 7).equals("rename")){
+        } else if (response.substring(0, 7).equals("rename")) {
             name = response.substring(response.indexOf(" "));
-        }else {
+        } else {
             System.out.println("You cannot " + response + " with the wumpus");
         }
     }
