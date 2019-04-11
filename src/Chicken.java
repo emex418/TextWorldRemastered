@@ -1,6 +1,5 @@
 public class Chicken extends Creature {
-    public Chicken(Level.Room startRoom) {
-        this.currentRoom = startRoom;
+    public Chicken() {
         name = "chicken";
     }
 

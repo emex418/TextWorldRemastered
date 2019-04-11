@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -7,11 +8,6 @@ public class Main {
 
     private static void play(Level level) {
         //TODO: command HashMap and finish Main
-        //TODO: check to see that all HashMap things function correctly
-        //Popstars move towards the player if they're within two steps of player
-        //User can pick up and drop items
-        //Game has a way to display what items and creatures are in a room
-
         String response = ";";
         Scanner s = new Scanner(System.in);
 
@@ -23,7 +19,6 @@ public class Main {
         System.out.println("\nWelcome to Level 1! " + humanPlayer.getName());
 
         do {
-
             System.out.println("\nYou are in the " + humanPlayer.getCurrentRoom().getName());
             System.out.println("what do you want to do?");
             System.out.println("go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory, interact with creatures");
@@ -33,7 +28,7 @@ public class Main {
             String firstWord = words[0];
 
             if (firstWord.equals("go")) {
-                humanPlayer.moveToRoom(words[2]);
+                if (humanPlayer.moveToRoom(words[2])) System.out.println("To the " + humanPlayer.getCurrentRoom().getName() + "...");
             } else if (firstWord.equals("look")) {
                 humanPlayer.getCurrentRoom().displayNeighbors();
             } else if (firstWord.equals("view")) {
@@ -43,10 +38,11 @@ public class Main {
                 humanPlayer.displayInventory();
             } else if (firstWord.equals("see")) {
                 humanPlayer.displayInventory();
-            } else if (firstWord.equals("interact")){
+            } else if (firstWord.equals("interact")) {
                 System.out.println("Which creature?");
                 humanPlayer.getCurrentRoom().displayCreatures();
-                //TODO: interact with chickens
+                response = s.nextLine();
+                //TODO: get response and run the interact method of the creature named that in current room
             } else {
                 System.out.println("You can; go to <room name>, look at neighbors, view room's items, pick up <item name>, see inventory, and interact with creatures");
             }
@@ -56,14 +52,14 @@ public class Main {
 
     private static Level createLevel1() {
         Level level1 = new Level();
-        Level.Room root = new Level.Room("root");
-        Level.Room garden = new Level.Room("garden");
-        Level.Room hall = new Level.Room("hall");
-        Level.Room diningRoom = new Level.Room("diningRoom");
-        Level.Room sittingRoom = new Level.Room("sittingRoom");
-        Level.Room kitchen = new Level.Room("kitchen");
-        Level.Room bedroom = new Level.Room("bedroom");
-        Level.Room bathroom = new Level.Room("bathroom");
+        Level.Room root = new Level.Room("root", rootItemsList(), emptyCreaturesList());
+        Level.Room garden = new Level.Room("garden", emptyItemsList(), gardenCreaturesList());
+        Level.Room hall = new Level.Room("hall", emptyItemsList(), emptyCreaturesList());
+        Level.Room diningRoom = new Level.Room("diningRoom", emptyItemsList(), emptyCreaturesList());
+        Level.Room sittingRoom = new Level.Room("sittingRoom", emptyItemsList(), emptyCreaturesList());
+        Level.Room kitchen = new Level.Room("kitchen", emptyItemsList(), emptyCreaturesList());
+        Level.Room bedroom = new Level.Room("bedroom", emptyItemsList(), emptyCreaturesList());
+        Level.Room bathroom = new Level.Room("bathroom", emptyItemsList(), emptyCreaturesList());
 
         level1.addRoom(root);
         level1.addRoom(garden);
@@ -86,5 +82,29 @@ public class Main {
         root.addItem("lamp", "provides light");
 
         return level1;
+    }
+
+    private static ArrayList<Item> emptyItemsList() {
+        return new ArrayList<>();
+    }
+
+    private static ArrayList<Item> rootItemsList() {
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(new Item("Painting", "portrait of an old woman"));
+        items.add(new Item("Fountain", "3-tier fountain; pumps water"));
+        items.add(new Item("Hand rail", "when you're going up the stairs, use this to support you"));
+        return items;
+    }
+
+    private static ArrayList<Creature> emptyCreaturesList() {
+        return new ArrayList<>();
+    }
+
+    private static ArrayList<Creature> gardenCreaturesList() {
+        ArrayList<Creature> creatures = new ArrayList<>();
+        creatures.add(new Chicken());
+        creatures.add(new Wumpus());
+        creatures.add(new PopStar());
+        return creatures;
     }
 }

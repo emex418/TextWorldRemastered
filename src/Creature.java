@@ -11,6 +11,10 @@ public abstract class Creature {
         return currentRoom;
     }
 
+    public void setCurrentRoom(Level.Room room) {
+        currentRoom = room;
+    }
+
     public String getName(){
         return name;
     }
@@ -38,5 +42,4 @@ public abstract class Creature {
         }
         return null;
     }
-
 }

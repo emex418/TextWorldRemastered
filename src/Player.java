@@ -14,6 +14,7 @@ public class Player {
     }
 
     public void addItem(Item item) {
+        System.out.println(item.getName() + "was added to inventory");
         inventory.add(item);
     }
 

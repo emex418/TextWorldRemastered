@@ -2,8 +2,7 @@ import java.util.Scanner;
 
 public class Wumpus extends Creature {
 
-    public Wumpus(Level.Room startRoom) {
-        this.currentRoom = startRoom;
+    public Wumpus() {
         name = "wumpus";
     }
 

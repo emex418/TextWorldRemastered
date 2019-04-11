@@ -1,15 +1,15 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Level {
     private HashMap<String, Room> rooms;
-
     public Level() {
         rooms = new HashMap<>();
     }
 
     public void addRoom(String name) {
-        rooms.put(name, new Room(name));
+        rooms.put(name, new Room(name, new ArrayList<>(), new ArrayList<>()));
     }
 
     public void addRoom(Room newRoom) {
@@ -41,9 +41,15 @@ public class Level {
         private ArrayList<Item> items = new ArrayList<>();
         private ArrayList<Creature> creatures = new ArrayList<>();
 
-        public Room(String name) {
+        public Room(String name, ArrayList<Item> items, ArrayList<Creature> creatures) {
+            this.items.addAll(items);
+            this.creatures.addAll(creatures);
+            for (Creature c: creatures) {
+                c.setCurrentRoom(this);
+            }
             this.name = name;
         }
+
 
         public String getName() {
             return name;
@@ -60,8 +66,7 @@ public class Level {
         }
 
         public Room getNeighbor(String name) {
-            neighbors.get(name);
-            return null;
+            return neighbors.get(name);
         }
 
         public void removeNeighbor(String name) {
@@ -79,16 +84,27 @@ public class Level {
         }
 
         public void displayNeighbors() {
-            System.out.println("Neighbors: ");
-            for(Room temp : neighbors.values()){
-                System.out.println(temp.getName());
+            System.out.print("Neighbors: \t");
+            for (Room temp : neighbors.values()) {
+                System.out.print(temp.getName() + ", ");
             }
+            System.out.println();
         }
 
         //ITEMS//
 
         public ArrayList<Item> getItems() {
             return items;
+        }
+
+        public Item getItem(String itemName) {
+            for (Item i : items) {
+                if (i.getName().equals(itemName)) {
+                    return i;
+                }
+            }
+            System.out.println(itemName + " does not exist");
+            return null;
         }
 
         public void displayItems() {
@@ -116,13 +132,11 @@ public class Level {
             items.add(newItem);
         }
 
-        public Item removeItem(String name) {
-            for (int i = 0; i < items.size(); i++) {
-                if (items.get(i).getName().equals(name)) {
-                    return items.remove(i);
-                }
+        public Item removeItem(String itemName) {
+            Item out = getItem(itemName);
+            if (items.remove(out) == true) {
+                return out;
             }
-            System.out.println("There is no " + name + " in " + this.name);
             return null;
         }
 
@@ -136,7 +150,7 @@ public class Level {
             return false;
         }
 
-        //Creatures//
+        //CREATURES//
 
         public void addCreature(Creature c) {
             creatures.add(c);
