@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Interact implements Command {
@@ -8,6 +9,11 @@ public class Interact implements Command {
         System.out.println("Which creature?");
         player.getCurrentRoom().displayCreatures();
         response = s.nextLine();
-        //TODO: get response and run the interact method of the creature named that in current room
+        ArrayList<Creature> creatures = player.getCurrentRoom().getCreatures();
+        for (Creature c : creatures) {
+            if(c.getName().equals(response)){
+                c.interact();
+            }
+        }
     }
 }

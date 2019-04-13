@@ -8,7 +8,6 @@ public class Main {
     }
 
     private static void play(Level level) {
-        //TODO: command HashMap and finish Main
         String response = ";";
         Scanner s = new Scanner(System.in);
 
@@ -79,8 +78,6 @@ public class Main {
         level1.addUndirectedEdge("diningRoom", "kitchen");
         level1.addUndirectedEdge("bedroom", "bathroom");
         level1.addUndirectedEdge("bathroom", "garden");
-
-        root.addItem("lamp", "provides light");
 
         return level1;
     }
